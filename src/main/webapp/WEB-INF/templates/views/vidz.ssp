@@ -1,0 +1,24 @@
+<!DOCTYPE HTML>
+<!--
+/*
+ * jQuery File Upload Plugin AngularJS Demo 2.0.0
+ * https://github.com/blueimp/jQuery-File-Upload
+ *
+ * Copyright 2013, Sebastian Tschan
+ * https://blueimp.net
+ *
+ * Licensed under the MIT license:
+ * http://www.opensource.org/licenses/MIT
+ */
+-->
+<html lang="en">
+  <head>
+    <title>All Videos</title>
+  </head>
+  <body>
+    <%@ val vidz: List[List[String]]  %>
+    <%@ val test: String %>
+    ${test}
+    ${vidz}
+  </body>
+</html>

@@ -1,0 +1,12 @@
+12-01 02:17:51 jdbc[2]: exception
+org.h2.jdbc.JdbcSQLException: Table "ARMS" already exists; SQL statement:
+create table "ARMS" ("ARM_ID" INTEGER NOT NULL PRIMARY KEY,"ARM_NAME" VARCHAR NOT NULL) [42101-166]
+12-01 02:22:23 jdbc[4]: exception
+org.h2.jdbc.JdbcSQLException: Table "ARMS" not found; SQL statement:
+INSERT INTO "ARMS" ("ARM_ID","ARM_NAME") VALUES (?,?) [42102-166]
+12-01 02:22:36 jdbc[4]: exception
+org.h2.jdbc.JdbcSQLException: Table "ARMS" not found; SQL statement:
+INSERT INTO "ARMS" ("ARM_ID","ARM_NAME") VALUES (?,?) [42102-166]
+12-01 02:23:42 jdbc[4]: exception
+org.h2.jdbc.JdbcSQLException: Table "VIDZ" not found; SQL statement:
+alter table "VIDZ" drop constraint "ARM_FK" [42102-166]

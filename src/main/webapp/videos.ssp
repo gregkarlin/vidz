@@ -1,0 +1,42 @@
+    <blockquote>
+      <p>Check out the vidz :) 
+    </blockquote>
+    <br>
+     <div id="container">
+      <div id="dynamic">
+        <table id="example" cellpadding="0" cellspacing="0" border="0" class="display">
+          <thead>
+            <tr>
+              <th width="25%">Title</th>
+              <th width="25%">Position</th>
+              <th width="25%">File Path</th>
+              <th width="25%">Arm</th>
+            </tr>
+          </thead>
+          <tbody>
+          </tbody>
+          <tfoot>
+            <tr>
+              <th>Title</th>
+              <th>Position</th>
+              <th>File Path</th>
+              <th>Arm</th>
+            </tr>
+          </tfoot>
+        </table>
+      </div>
+    </div>
+
+<style type="text/css" title="currentStyle">
+      @import "css/demo_page.css";
+      @import "css/demo_table.css";
+    </style>
+    <script type="text/javascript" language="javascript" src="js/jquery.dataTables.js"></script>
+    <script type="text/javascript" charset="utf-8">
+      $(document).ready(function() {
+        var oTable = $('#example').dataTable( {
+          "bProcessing": true,
+          "sAjaxSource": "http://localhost:8080/vidz"
+        } );
+      } );
+    </script>
