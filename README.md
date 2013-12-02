@@ -20,4 +20,12 @@ http://localhost:8080/db/load-data
 
 I will add an initialize script when I feel like it.
 
-Now open the site's [root page](http://localhost:8080/) in your browser.
+
+Upload:
+http://localhost:8080/upload
+
+View All videos:
+http://localhost:8080/videos
+
+
+
