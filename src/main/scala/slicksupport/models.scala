@@ -23,5 +23,5 @@ object Vidz extends Table[(String, Int, Int, String)]("VIDZ") {
   def arm = foreignKey("ARM_FK", armID, Arms)(_.id)
 }
 
-
-// vim: set ts=2 sw=2 et:
+//Bring on the case classes
+case class Video(title:String, arm:String,position:Int,file_path:String)
