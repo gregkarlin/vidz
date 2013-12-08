@@ -22,34 +22,6 @@ protected implicit val jsonFormats: Formats = DefaultFormats
     contentType = formats("json")
   }
 
-  get("/db/create-tables") {
-    db withSession {
-      (Arms.ddl ++ Vidz.ddl).create
-    }
-  }
-
-  get("/db/load-data") {
-    db withSession {
-      // Insert some suppliers
-      Arms.insert(1, "Directed Works") 
-      Arms.insert(2, "Good") 
-      Arms.insert(3, "Lost Lost") 
-      Arms.insert(4, "LPTV") 
-      Arms.insert(5, "Tech Tips") 
-      Arms.insert(6, "Finishing") 
-      Arms.insert(7, "Manifesto") 
-      // Insert some coffees (using JDBC's batch insert feature, if supported by the DB)
-      Ok()
-    }
-    
-  }
-
-  get("/db/drop-tables") {
-    db withSession {
-      (Arms.ddl ++ Vidz.ddl).drop
-    }
-  }
-
   get("/vidz") {
     db withSession {
      val videos = (for {
@@ -57,6 +29,16 @@ protected implicit val jsonFormats: Formats = DefaultFormats
         s <- v.arm
       } yield(v.title, v.position, v.file_path, s.name))
       videos.list.map { case (s1, s2, s3, s4) => "\"" + s1 + "\", " + "\"" + s2 + "\", " + "\"" + s3 + "\", " + "\"" + s4 + "\"" } mkString ("{ \"aaData\": [ [","] , [","] ] }")
+    }
+  }
+
+  get("/json/vidz") {
+    db withSession {
+      val videos = (for {
+        v <- Vidz
+        s <- v.arm 
+      } yield(v.title, s.name, v.position, v.file_path))
+        videos.list.map { case (s1, s2, s3, s4) => Video(s1,s2,s3,s4) }
     }
   }
 
@@ -69,20 +51,21 @@ protected implicit val jsonFormats: Formats = DefaultFormats
     db withSession {
       Vidz.insert(title,arm,position,file_path)
     }
+
     val out = new FileOutputStream(file_path)
       out.write(file.get())
       out.close()
     Ok()
   } 
 
-get("/upload"){
-  contentType="text/html"
-  layoutTemplate("upload.ssp", "page" -> "upload")
+  get("/upload"){
+    contentType="text/html"
+    layoutTemplate("upload.ssp", "page" -> "upload", "leader" -> "Upload your new jimjam `}")
   } 
 
-get("/videos"){
-  contentType="text/html"
-  layoutTemplate("videos.ssp", "page" -> "videos")
+  get("/videos"){
+    contentType="text/html"
+    layoutTemplate("videos.ssp", "page" -> "videos", "leader" -> "All your films :|")
   } 
 }
 
