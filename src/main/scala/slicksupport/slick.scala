@@ -28,7 +28,7 @@ protected implicit val jsonFormats: Formats = DefaultFormats
         v <- Vidz
         s <- v.arm
       } yield(v.title, v.position, v.file_path, s.name))
-      videos.list.map { case (s1,s2,s3,s4) => List(s1,s2,s3,s4) }
+      videos.list.map { case (s1, s2, s3, s4) => "\"" + s1 + "\", " + "\"" + s2 + "\", " + "\"" + s3 + "\", " + "\"" + s4 + "\"" } mkString ("{ \"aaData\": [ [","] , [","] ] }")
     }
   }
 
