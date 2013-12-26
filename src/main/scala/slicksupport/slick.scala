@@ -60,12 +60,17 @@ protected implicit val jsonFormats: Formats = DefaultFormats
 
   get("/upload"){
     contentType="text/html"
-    layoutTemplate("upload.ssp", "page" -> "upload", "leader" -> "Upload your new jimjam `}")
+    layoutTemplate("upload.ssp", "page" -> "upload", "leader" -> "Upload your new jimjam :[ ")
   } 
 
   get("/videos"){
     contentType="text/html"
     layoutTemplate("videos.ssp", "page" -> "videos", "leader" -> "All your films :|")
   } 
+
+  get("/monster"){
+    contentType="text/html"
+    layoutTemplate("monster.ssp", "layout" -> "")
+  }
 }
 
