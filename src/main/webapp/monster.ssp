@@ -14,7 +14,9 @@
                 preserveAspectRatio="xMidYMid">
             </svg>
         </div>
-        
+        <div class="back-planet">
+            <a href="http://lostplanet.com"><img src="../images/moon.gif" /></a>
+        </div>       
         <script src="js/d3.min.js" charset="utf-8"></script>
         <script src="js/jquery.min.js"></script>
         <script src="js/monster.js"></script>
