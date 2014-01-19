@@ -14,7 +14,7 @@ function showVideos(key,position_index,quantity,offset) {
     .attr('y',-70)
     .attr('class','arm'+position_index)
     .attr('transform','rotate(' + rotate + ',' + translate_x  +',' + translate_y  + ')');
-    vidOrbiter(vid,i,position_index,quantity,translate_x,translate_y,360,0,Math.random())
+    vidOrbiter(vid,i,position_index,quantity,translate_x,translate_y,500,0,Math.random())
   }
 }
 
