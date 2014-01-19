@@ -29,7 +29,7 @@ function vidOrbiter(vid,i,position_index,quantity,x,y,orbit,angle,random_velocit
   var translate_y = y + (Math.sin(angle) * radius)*.6*position_index;
   var rotation_duration = Math.floor(10*random_velocity)
   angle = angle + .1;
-  orbit = orbit + .5*orbit;
+  orbit = Math.min((orbit + .5*orbit),10000);
   vid.transition()
   .duration(5 *Math.random() )
   .attr('transform','rotate(' + rotation + ',' + translate_x  +',' + translate_y  + ')')
