@@ -14,7 +14,7 @@ var radius = 10
 var test_arms = {
   "first":[1,2,3],
   "second":[1,2],
-  "third":[1,2,3,4],
+  "third":[1,2,3,4,5,6,7,8],
   "fourth":[1,2],
   "fifth":[],
   "sixth":[1,2,3,4,5]
@@ -35,6 +35,7 @@ Object.keys(test_arms).map(function(key) {
   var vid_length = test_arms[key].length;
   canvas.append('svg:image')
     .attr("xlink:href",'../images/arm_small.gif')
+    .attr("class","arm")
     .attr("width",rect_width)
     .attr("height",rect_height)
     .attr("transform","rotate(" + (offset + (index*-360/length)) + ",100,220)") 

@@ -37,9 +37,7 @@
 }
 
 .arm {
-    height:140px;
-    width:150px;
-    background-image:url('../images/arm_small.gif');
+  cursor:pointer; 
 }
 
 .back-planet {

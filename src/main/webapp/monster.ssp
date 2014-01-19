@@ -10,7 +10,7 @@
         </div>
         <div id="container">
             <svg class="canvas" width="100%" height="100%"
-                viewBox="-400 0 1060 800"
+                viewBox="-400 -75 1060 800"
                 preserveAspectRatio="xMidYMid">
             </svg>
         </div>
@@ -19,6 +19,7 @@
         </div>       
         <script src="js/d3.min.js" charset="utf-8"></script>
         <script src="js/jquery.min.js"></script>
+        <script src="js/showVideos.js"></script>
         <script src="js/monster.js"></script>
     </body>
 </html>
