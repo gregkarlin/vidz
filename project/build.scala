@@ -19,6 +19,7 @@ object ScalatraSlickBuild extends Build {
       organization := Organization,
       name := Name,
       version := Version,
+      mainClass in (Compile, run) := Some("com.vidz.Main"),
       scalaVersion := ScalaVersion,
       resolvers += "Sonatype OSS Snapshots" at "http://oss.sonatype.org/content/repositories/snapshots/",
       libraryDependencies ++= Seq(

@@ -51,6 +51,7 @@
                         </span>
                         <span data-ng-switch-default>{{file.name}}</span>
                         <span> <td class="title"><label>Title: <input name="title" required></label></td></span>
+                        <span> <td class="thumb_nail"><label>Thumb Nail: <input type="file" name="thumb_nail" required></label></td></span>
                         <span> <td class="arm"><label>Arm: 
                         <select name="arm" required>
                           <option value="1">Directed Works</option>
@@ -115,9 +116,9 @@
 <div id="blueimp-gallery" class="blueimp-gallery blueimp-gallery-controls" data-filter=":even">
     <div class="slides"></div>
     <h3 class="title"></h3>
-    <a class="prev">‹</a>
-    <a class="next">›</a>
-    <a class="close">×</a>
+    <a class="prev">���</a>
+    <a class="next">���</a>
+    <a class="close">��</a>
     <a class="play-pause"></a>
     <ol class="indicator"></ol>
 </div>

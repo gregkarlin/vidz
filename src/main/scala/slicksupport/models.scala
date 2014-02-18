@@ -12,16 +12,17 @@ object Arms extends Table[(Int, String)]("ARMS") {
 }
 
 // Definition of the COFFEES table
-object Vidz extends Table[(String, Int, Int, String)]("VIDZ") {
+object Vidz extends Table[(String, Int, Int, String, String)]("VIDZ") {
   def title = column[String]("VID_TITLE", O.PrimaryKey)
   def armID = column[Int]("ARM_ID")
   def position = column[Int]("POSITION")
   def file_path = column[String]("FILE_PATH")
-  def * = title ~ armID ~ position ~ file_path
+  def thumb_nail_path = column[String]("THUMB_NAIL_PATH")
+  def * = title ~ armID ~ position ~ file_path ~ thumb_nail_path
 
   // A reified foreign key relation that can be navigated to create a join
   def arm = foreignKey("ARM_FK", armID, Arms)(_.id)
 }
 
 //Bring on the case classes
-case class Video(title:String, arm:String,position:Int,file_path:String)
+case class Video(title:String, arm:String,position:Int,file_path:String,thumb_nail_path:String)

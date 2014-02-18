@@ -1,25 +1,32 @@
 var vid_width = 4*12;
 var vid_height = 3*12;
-function showVideos(key,position_index,quantity,offset) {
+function showVideos(data,key,position_index,quantity,offset) {
   for (i=1;i<=quantity;i++) {
     var rotate = offset +(position_index* -360/length);
     var second_rotate = (7.5*i) + offset +(position_index* -360/length);
     var translate_x =   110;
     var translate_y =  220;
+    p = data;
+    var thumb_nail = data[key][i-1]["_4"];
     var vid = canvas.append('svg:image')
-    .attr('xlink:href','../images/preview.jpeg')
+    .attr('xlink:href','../images/' + thumb_nail)
     .attr('width',vid_width)
     .attr('height',vid_height) 
     .attr('x',80)
     .attr('y',-70)
     .attr('class','arm'+position_index)
     .attr('transform','rotate(' + rotate + ',' + translate_x  +',' + translate_y  + ')');
+    canvas.append("svg:text")
+      .attr("class","arm_title")
+      .attr("transform","translate(60,190)")
+      .text(key)
     vidOrbiter(vid,i,position_index,quantity,translate_x,translate_y,500,0,Math.random())
   }
 }
 
 function hideVideos(position_index) {
   $('.arm'+position_index).remove();
+  $('.arm_title').remove()
 };
 
 function vidOrbiter(vid,i,position_index,quantity,x,y,orbit,angle,random_velocity) {
