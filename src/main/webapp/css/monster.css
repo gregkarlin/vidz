@@ -40,6 +40,11 @@
   cursor:pointer; 
 }
 
+.arm_extension
+{
+	cursor:pointer;
+}
+
 .back-planet {
     position: absolute;
     left: 5px;
@@ -51,3 +56,4 @@
 .back-planet img {
     max-width: 100%; 
 }
+

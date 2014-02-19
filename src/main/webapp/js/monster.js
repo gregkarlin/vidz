@@ -43,14 +43,16 @@ Object.keys(data).map(function(key) {
   var position_index = index;
   var vid_length = data[key].length;
   var length = Object.keys(data).length;
+  
   canvas.append('svg:image')
     .attr("xlink:href",'../images/arm_small.gif')
     .attr("class","arm")
     .attr("width",rect_width)
     .attr("height",rect_height)
     .attr("transform","rotate(" + (offset + (index*-360/length)) + ",100,220)") 
-    .on("mouseover",function(){showVideos(data,key,position_index,vid_length,offset,length);})
-    .on("mouseout",function(){hideVideos(position_index);});
+    .on("mouseover",function(){hideVideos();showVideos(data,key,position_index,vid_length,offset,length);});
+    //.on("mouseout",function(){hideVideos(position_index);});
+  
     index++;
 });
 canvas.append('svg:image')

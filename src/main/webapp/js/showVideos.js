@@ -1,5 +1,10 @@
 var vid_width = 4*12;
 var vid_height = 3*12;
+function showVideo(video_file) {
+	alert("fuck")
+	console.log("asd")
+	window.location.href="/movies/"+video_file;
+}
 function showVideos(data,key,position_index,quantity,offset) {
   for (i=1;i<=quantity;i++) {
     var rotate = offset +(position_index* -360/length);
@@ -8,14 +13,17 @@ function showVideos(data,key,position_index,quantity,offset) {
     var translate_y =  220;
     p = data;
     var thumb_nail = data[key][i-1]["_4"];
+    var video_file = data[key][i-1]["_3"];
     var vid = canvas.append('svg:image')
     .attr('xlink:href','../images/' + thumb_nail)
     .attr('width',vid_width)
     .attr('height',vid_height) 
     .attr('x',80)
     .attr('y',-70)
-    .attr('class','arm'+position_index)
-    .attr('transform','rotate(' + rotate + ',' + translate_x  +',' + translate_y  + ')');
+    .attr('class','arm_extension')
+    .attr('transform','rotate(' + rotate + ',' + translate_x  +',' + translate_y  + ')')
+    .on("mousedown",function(d){alert("asd");showVideo(video_file)});
+    
     canvas.append("svg:text")
       .attr("class","arm_title")
       .attr("transform","translate(60,190)")
@@ -24,8 +32,8 @@ function showVideos(data,key,position_index,quantity,offset) {
   }
 }
 
-function hideVideos(position_index) {
-  $('.arm'+position_index).remove();
+function hideVideos() {
+  $('.arm_extension').remove();
   $('.arm_title').remove()
 };
 
