@@ -32,6 +32,14 @@ protected implicit val jsonFormats: Formats = DefaultFormats
     }
   }
 
+  get("/arm_length/:arm") {
+    db withSession {
+      (for {
+        v <- Vidz if v.armID === params("arm").toInt
+      } yield v.title.count).list(0)
+    }
+  }
+  
   get("/json/vidz") {
     
     db withSession {
@@ -53,7 +61,7 @@ protected implicit val jsonFormats: Formats = DefaultFormats
     val title = params("title")  
     val arm = params("arm").toInt
     val position = params("position").toInt
-    val file_path = "vidz/" + file.name
+    val file_path = "movies/" + file.name
     val thumb_nail_path = "thumbs/" + thumb_nail.name
     db withSession {
       Vidz.insert(title,arm,position,file_path,thumb_nail_path)
@@ -83,6 +91,11 @@ protected implicit val jsonFormats: Formats = DefaultFormats
   get("/monster"){
     contentType="text/html"
     layoutTemplate("monster.ssp", "layout" -> "")
+  }
+  
+  get("/movie/:movie_src"){
+    contentType="text/html"
+    layoutTemplate("movie.ssp", "layout" -> "")
   }
 }
 

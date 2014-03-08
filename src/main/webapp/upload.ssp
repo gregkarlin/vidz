@@ -53,7 +53,7 @@
                         <span> <td class="title"><label>Title: <input name="title" required></label></td></span>
                         <span> <td class="thumb_nail"><label>Thumb Nail: <input type="file" name="thumb_nail" required></label></td></span>
                         <span> <td class="arm"><label>Arm: 
-                        <select name="arm" required>
+                        <select name="arm" id="arm" required>
                           <option value="1">Directed Works</option>
                           <option value="2">Good</option>
                           <option value="3">Lost Lost</option>
@@ -62,18 +62,15 @@
                           <option value="6">Finishing</option>
                           <option value="7">Manifesto</option>
                         </select>
+                        <script>
+                        
+                          $("#arm").change(function(){getLength($(this).val())});
+                          setOptions($("#arm").val());
+                        </script>
                           </label></td></span>
                           <span> <td class="arm"><label>Position: 
-                        <select name="position" required>
-                          <option value="1">1</option>
-                          <option value="2">2</option>
-                          <option value="3">3</option>
-                          <option value="4">4</option>
-                          <option value="5">5</option>
-                          <option value="6">6</option>
-                          <option value="7">7</option>
-                          <option value="8">8</option>
-                        </select></label></td></span>
+                        <div id="position_container">
+                        </div>
                     </p>
                     <strong data-ng-show="file.error" class="error text-danger">{{file.error}}</strong>
                 </td>
@@ -164,5 +161,17 @@
                 reader.readAsDataURL(input.files[0]);
             }
         }
-
+     
+     function getLength(arm_id) {
+       $.ajax({
+         url: "arm_length/"+arm_id,
+         }).done(function(data){setOptions((data)[0])});
+       
+     }
+     
+     function setOptions(length) {
+       length = length + 1
+       $("#position_container").html('0<input name="position" id="position" type="range" min=1 max='+length+' required>'+length)
+     }
+     
     </script>

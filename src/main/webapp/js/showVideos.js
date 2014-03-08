@@ -1,9 +1,7 @@
 var vid_width = 4*12;
 var vid_height = 3*12;
 function showVideo(video_file) {
-	alert("fuck")
-	console.log("asd")
-	window.location.href="/movies/"+video_file;
+	window.location.href="/movie/"+video_file;
 }
 function showVideos(data,key,position_index,quantity,offset) {
   for (i=1;i<=quantity;i++) {
@@ -22,7 +20,7 @@ function showVideos(data,key,position_index,quantity,offset) {
     .attr('y',-70)
     .attr('class','arm_extension')
     .attr('transform','rotate(' + rotate + ',' + translate_x  +',' + translate_y  + ')')
-    .on("mousedown",function(d){alert("asd");showVideo(video_file)});
+    .on("mousedown",function(d){showVideo(video_file)});
     
     canvas.append("svg:text")
       .attr("class","arm_title")
