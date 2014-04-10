@@ -4,7 +4,6 @@ import org.scalatra.ScalatraServlet
 import org.scalatra._
 import scalate.ScalateSupport
 import scala.slick.driver.H2Driver.simple._
-import Database.threadLocalSession
 import org.scalatra.servlet.{FileUploadSupport, MultipartConfig, SizeConstraintExceededException}
 import java.io._
 import org.json4s.{DefaultFormats, Formats}
@@ -23,9 +22,9 @@ protected implicit val jsonFormats: Formats = DefaultFormats
   }
 
   get("/vidz") {
-    db withSession {
+    db withSession { implicit session: Session =>
      val videos = (for {
-        v <- Vidz
+        v <- DbComponent.vidz
         s <- v.arm
       } yield(v.title, v.position, v.file_path, s.name))
       videos.list.map { case (s1, s2, s3, s4) => "\"" + s1 + "\", " + "\"" + s2 + "\", " + "\"" + s3 + "\", " + "\"" + s4 + "\"" } mkString ("{ \"aaData\": [ [","] , [","] ] }")
@@ -33,18 +32,19 @@ protected implicit val jsonFormats: Formats = DefaultFormats
   }
 
   get("/arm_length/:arm") {
-    db withSession {
-      (for {
-        v <- Vidz if v.armID === params("arm").toInt
-      } yield v.title.count).list(0)
+    db withSession { implicit session: Session =>
+      val z = for { v <- DbComponent.vidz if v.armID === params("arm").toInt} yield v
+      val d = z.list.map(_.title)
+      d.toList.length.toString
     }
+    
   }
   
   get("/json/vidz") {
     
-    db withSession {
+    db withSession {  implicit session: Session =>
       val videos = (for {
-        v <- Vidz
+        v <- DbComponent.vidz
         s <- v.arm 
       } yield(v.title, s.name, v.position, v.file_path, v.thumb_nail_path))
         //videos.list.map { case (s1, s2, s3, s4, s5) => Video(s1,s2,s3,s4,s5) }
@@ -56,6 +56,7 @@ protected implicit val jsonFormats: Formats = DefaultFormats
   }
 
   post("/file") {
+    
     val file = fileParams("files")
     val thumb_nail = fileParams("thumb_nail")
     val title = params("title")  
@@ -63,19 +64,21 @@ protected implicit val jsonFormats: Formats = DefaultFormats
     val position = params("position").toInt
     val file_path = "movies/" + file.name
     val thumb_nail_path = "thumbs/" + thumb_nail.name
-    db withSession {
-      Vidz.insert(title,arm,position,file_path,thumb_nail_path)
-      val videos = Vidz.filter(_.arm == arm ).filter(_.position >= position)
-      //videos.map( vid => Vidz.filter(_.title === vid.title).map(_.position).update(4))
+    db withSession {  implicit session: Session =>
+      DbComponent.vidz.insert(Video(title,arm,position,file_path,thumb_nail_path))
+      println(s"inserting video for arm: $arm it position $position")
+      val videos = DbComponent.vidz.filter(_.armID === arm ).filter(_.position >= position).run
+      videos.map( vid => DbComponent.vidz.filter(_.title === vid.title).map(_.position).update(vid.position.asInstanceOf[Int]+1))
     }
-
+    println("db updated")
     val out = new FileOutputStream(file_path)
       out.write(file.get())
       out.close()
     val thumb_out = new FileOutputStream(thumb_nail_path)
       thumb_out.write(thumb_nail.get())
       thumb_out.close()
-    Ok()
+    
+    "Videos Updated"
   } 
 
   get("/upload"){

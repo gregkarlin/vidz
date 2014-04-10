@@ -3,7 +3,7 @@
     </blockquote>
     <br>
     <!-- The file upload form used as target for the file upload widget -->
-    <form id="fileupload" action="//jquery-file-upload.appspot.com/" method="POST" enctype="multipart/form-data" data-ng-app="demo" data-ng-controller="DemoFileUploadController" data-file-upload="options" data-ng-class="{'fileupload-processing': processing() || loadingFiles}">
+    <form id="fileupload" action="http://localhost:8080/file" method="POST" enctype="multipart/form-data" data-ng-app="demo" data-ng-controller="DemoFileUploadController" data-file-upload="options" data-ng-class="{'fileupload-processing': processing() || loadingFiles}">
         <!-- Redirect browsers with JavaScript disabled to the origin page -->
         <noscript><input type="hidden" name="redirect" value="http://blueimp.github.io/jQuery-File-Upload/"></noscript>
         <!-- The fileupload-buttonbar contains buttons to add/delete files and start/cancel the upload -->
@@ -13,12 +13,15 @@
                 <span class="btn btn-success fileinput-button" ng-class="{disabled: disabled}">
                     <i class="glyphicon glyphicon-plus"></i>
                     <span>Add file...</span>
-                    <input type="file" name="files[]" multiple ng-disabled="disabled">
+                    <input type="file" name="files[]">
                 </span>
+                <input type="submit" value="Submit" class="btn btn-primary start">
+                <!--
                 <button type="button" class="btn btn-primary start" data-ng-click="submit()">
                     <i class="glyphicon glyphicon-upload"></i>
                     <span>Start upload</span>
                 </button>
+                -->
                 <button type="button" class="btn btn-warning cancel" data-ng-click="cancel()">
                     <i class="glyphicon glyphicon-ban-circle"></i>
                     <span>Cancel upload</span>
@@ -51,7 +54,7 @@
                         </span>
                         <span data-ng-switch-default>{{file.name}}</span>
                         <span> <td class="title"><label>Title: <input name="title" required></label></td></span>
-                        <span> <td class="thumb_nail"><label>Thumb Nail: <input type="file" name="thumb_nail" required></label></td></span>
+                        <span> <td class="thumb_nail"><label>Thumb Nail: <input type="file" name="thumb_nail[]" required></label></td></span>
                         <span> <td class="arm"><label>Arm: 
                         <select name="arm" id="arm" required>
                           <option value="1">Directed Works</option>
@@ -64,7 +67,8 @@
                         </select>
                         <script>
                         
-                          $("#arm").change(function(){getLength($(this).val())});
+                          $("#arm").change(function(){
+                            getLength($(this).val())});
                           setOptions($("#arm").val());
                         </script>
                           </label></td></span>
@@ -79,10 +83,7 @@
                     <div class="progress progress-striped active fade" data-ng-class="{pending: 'in'}[file.$state()]" data-file-upload-progress="file.$progress()"><div class="progress-bar progress-bar-success" data-ng-style="{width: num + '%'}"></div></div>
                 </td>
                 <td>
-                    <button type="button" class="btn btn-primary start" data-ng-click="file.$submit()" data-ng-hide="!file.$submit || options.autoUpload" data-ng-disabled="file.$state() == 'pending' || file.$state() == 'rejected'">
-                        <i class="glyphicon glyphicon-upload"></i>
-                        <span>Start</span>
-                    </button>
+                    <input type="submit" value="Submit"  class="btn btn-primary start">
                     <button type="button" class="btn btn-warning cancel" data-ng-click="file.$cancel()" data-ng-hide="!file.$cancel">
                         <i class="glyphicon glyphicon-ban-circle"></i>
                         <span>Cancel</span>
@@ -165,12 +166,15 @@
      function getLength(arm_id) {
        $.ajax({
          url: "arm_length/"+arm_id,
-         }).done(function(data){setOptions((data)[0])});
+         }).done(function(data){
+           console.log(data);
+           setOptions(data)
+           });
        
      }
      
      function setOptions(length) {
-       length = length + 1
+       length = parseInt(length) + 1
        $("#position_container").html('0<input name="position" id="position" type="range" min=1 max='+length+' required>'+length)
      }
      
